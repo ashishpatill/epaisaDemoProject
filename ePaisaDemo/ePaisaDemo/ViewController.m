@@ -10,10 +10,11 @@
 
 @interface ViewController ()
 {
-    NSArray *themeArray;
-    NSArray *languageArray;
-    NSArray *pickerArray;
+    NSMutableArray *themeArray;
+    NSMutableArray *languageArray;
+    NSMutableArray *pickerArray;
     BOOL isThemeBtnSelected;
+    NSString *language;
 }
 @end
 
@@ -22,18 +23,86 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [[UIApplication sharedApplication]setStatusBarHidden:YES];
+
     [self.pickerView setHidden:YES];
+}
+
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    languageArray = [[NSArray alloc]initWithObjects:@"Marathi",@"Hindi",@"English", nil];
+    languageArray = [[NSMutableArray alloc]initWithObjects:@"Marathi",@"Hindi",@"English", nil];
     
-    themeArray = [[NSArray alloc]initWithObjects:@"Red",@"Green",@"yellow",@"Blue", nil];
+    themeArray = [[NSMutableArray alloc]initWithObjects:@"Red",@"Green",@"yellow",@"Blue", nil];
+    language = @"English";
     
-    //pickerArray = [[NSArray alloc]init];
+}
+
+-(void)changeLanguage:(int)languageNumber
+{
+    switch (languageNumber) {
+        case 0:
+            languageArray = [[NSMutableArray alloc]initWithObjects:@"मराठी",@"हिंदी",@"English", nil];
+            
+            themeArray = [[NSMutableArray alloc]initWithObjects:@"लाल",@"हिरवा",@"पिवळा",@"निळा", nil];
+            
+            [self.changeThemeBtn setTitle:@"थीम बदलणे" forState:UIControlStateNormal];
+            
+            [self.changeLanguageBtn setTitle:@"भाषा बदलणे" forState:UIControlStateNormal];
+            
+            [self.loginBtn setTitle:@"लॉगिन" forState:UIControlStateNormal];
+            
+            [self.setBtn setTitle:@"ठीक" forState:UIControlStateNormal];
+            
+            language = @"Marathi";
+            
+            break;
+        case 1:
+            languageArray = [[NSMutableArray alloc]initWithObjects:@"मराठी",@"हिंदी",@"English", nil];
+            
+            themeArray = [[NSMutableArray alloc]initWithObjects:@"लाल",@"हरा",@"पीला",@"नीला", nil];
+            
+            [self.changeThemeBtn setTitle:@"थीम बदलना" forState:UIControlStateNormal];
+            
+            [self.changeLanguageBtn setTitle:@"भाषा बदलना" forState:UIControlStateNormal];
+            
+            [self.loginBtn setTitle:@"लॉगिन" forState:UIControlStateNormal];
+            
+            [self.setBtn setTitle:@"ठीक" forState:UIControlStateNormal];
+            
+            language = @"Hindi";
+
+
+            break;
+        case 2:
+            languageArray = [[NSMutableArray alloc]initWithObjects:@"मराठी",@"हिंदी",@"English", nil];
+            
+            themeArray = [[NSMutableArray alloc]initWithObjects:@"Red",@"Green",@"yellow",@"Blue", nil];
+            
+            [self.changeThemeBtn setTitle:@"Change Theme" forState:UIControlStateNormal];
+            
+            [self.changeLanguageBtn setTitle:@"Change Language" forState:UIControlStateNormal];
+            
+            [self.loginBtn setTitle:@"login" forState:UIControlStateNormal];
+            
+            [self.setBtn setTitle:@"set" forState:UIControlStateNormal];
+            
+            language = @"English";
+            break;
+        default:
+            [self.view setBackgroundColor:[UIColor whiteColor]];
+            break;
+    }
+    
+   // लाल हरा पीला नीला
+   
+   // लाल हिरवा पिवळा निळा
     
 }
 
@@ -61,24 +130,26 @@
     }
     else if ([emailIDTxtField.text isEqualToString:@"admin@epaisa.com"]&& [passwordTextField.text isEqualToString:@"123123"])
     {
-        if ([self.changeThemeBtn.titleLabel.text isEqualToString:@"Change Theme"] && ![self.changeLanguageBtn.titleLabel.text isEqualToString:@"Change Language"])
-        {
-            [self showAlert:@"Invalid Theme" :@"Select a theme and try again"];
-        }
-        else if ([self.changeLanguageBtn.titleLabel.text isEqualToString:@"Change Language"] && ![self.changeThemeBtn.titleLabel.text isEqualToString:@"Change Theme"])
-        {
-            [self showAlert:@"Invalid Language" :@"Select a Language and try again"];
-        }
-        else if ([self.changeLanguageBtn.titleLabel.text isEqualToString:@"Change Language"] && [self.changeThemeBtn.titleLabel.text isEqualToString:@"Change Theme"])
-        {
-            [self showAlert:@"Invalid Theme and Language" :@"Select a theme and Language and try again"];
-        }
-        else
-        {
-            [self performSegueWithIdentifier:@"toDetailPage" sender:self];
-            
-            [self showAlert :@"Login Successful" :@"You can now access the app" ];
-        }
+        
+            if ([self.changeThemeBtn.titleLabel.text isEqualToString:@"Change Theme"] && ![self.changeLanguageBtn.titleLabel.text isEqualToString:@"Change Language"])
+            {
+                [self showAlert:@"Invalid Theme" :@"Select a theme and try again"];
+            }
+            else if ([self.changeLanguageBtn.titleLabel.text isEqualToString:@"Change Language"] && ![self.changeThemeBtn.titleLabel.text isEqualToString:@"Change Theme"])
+            {
+                [self showAlert:@"Invalid Language" :@"Select a Language and try again"];
+            }
+            else if ([self.changeLanguageBtn.titleLabel.text isEqualToString:@"Change Language"] && [self.changeThemeBtn.titleLabel.text isEqualToString:@"Change Theme"])
+            {
+                [self showAlert:@"Invalid Theme and Language" :@"Select a theme and Language and try again"];
+            }
+            else
+            {
+                [self performSegueWithIdentifier:@"toDetailPage" sender:self];
+                
+                [self showAlert :@"Login Successful" :@"You can now access the app" ];
+            }
+        
     }
     else
     {
@@ -115,7 +186,7 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (IBAction)changeThemeAction:(UIButton *)sender
 {
-    pickerArray = [NSArray arrayWithArray:themeArray];
+    pickerArray = [NSMutableArray arrayWithArray:themeArray];
     
     [self.picker reloadComponent:0];
     
@@ -126,7 +197,7 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (IBAction)changeLanguageAction:(UIButton *)sender
 {
-    pickerArray = [NSArray arrayWithArray:languageArray];
+    pickerArray = [NSMutableArray arrayWithArray:languageArray];
     
     [self.picker reloadComponent:0];
     
@@ -170,21 +241,7 @@ numberOfRowsInComponent:(NSInteger)component
         self.changeLanguageBtn.titleLabel.text = selectedPickerString;
         [self.changeLanguageBtn setTitle:selectedPickerString forState:UIControlStateNormal];
         
-       /* switch (row) {
-            case 0:
-                [self.view setBackgroundColor:[UIColor redColor]];
-                break;
-            case 1:
-                [self.view setBackgroundColor:[UIColor greenColor]];
-                break;
-            case 2:
-                [self.view setBackgroundColor:[UIColor yellowColor]];
-                break;
-            default:
-                [self.view setBackgroundColor:[UIColor whiteColor]];
-                break;
-        }
-        */
+        [self changeLanguage:row];
 
     }
     [self.pickerView setHidden:YES];

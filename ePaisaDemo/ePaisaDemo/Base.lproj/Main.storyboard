@@ -73,9 +73,9 @@
                                         </connections>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vqm-kh-2bI">
-                                        <rect key="frame" x="145" y="175" width="30" height="30"/>
+                                        <rect key="frame" x="145" y="168" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Set">
+                                        <state key="normal" title="OK">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -97,6 +97,7 @@
                         <outlet property="passwordTextField" destination="4PV-cI-2bJ" id="hl7-nq-Bxg"/>
                         <outlet property="picker" destination="2m0-YO-Lqh" id="g6G-lK-tuW"/>
                         <outlet property="pickerView" destination="IgQ-Gp-gw4" id="EHp-Uh-PeY"/>
+                        <outlet property="setBtn" destination="Vqm-kh-2bI" id="lRq-qC-o3L"/>
                         <outlet property="setTheme" destination="Vqm-kh-2bI" id="DDY-iG-LQy"/>
                         <segue destination="HGW-pM-NXf" kind="push" identifier="toDetailPage" id="4iO-vo-oYE"/>
                     </connections>

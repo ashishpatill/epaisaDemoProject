@@ -10,7 +10,16 @@
 
 @implementation detailPage
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[UIApplication sharedApplication]setStatusBarHidden:YES];
 
+}
+
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 // Mumbai international airport latitude and longitude
 // 19.0886° N, 72.8681° E
 -(void)viewDidLoad

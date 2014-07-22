@@ -22,4 +22,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *setTheme;
 - (IBAction)exitKeyBoard:(UITextField *)sender;
 - (IBAction)setBtnAction:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIButton *setBtn;
 @end
